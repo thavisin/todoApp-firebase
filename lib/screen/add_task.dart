@@ -20,7 +20,6 @@ class _AddTaskState extends State<AddTask> {
     final User? user = await auth.currentUser;
     String uid = user!.uid;
     var time = DateTime.now();
-    String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(time);
     await FirebaseFirestore.instance
         .collection('tasks')
         .doc(uid)
@@ -42,7 +41,6 @@ class _AddTaskState extends State<AddTask> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Container(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+import 'package:review_app/screen/edit_task.dart';
 
 import '../const/const.dart';
 
@@ -141,16 +142,37 @@ class _HomepageState extends State<Homepage> {
                                   ),
                                 ],
                               ),
-                              trailing: IconButton(
-                                  onPressed: () async {
-                                    await FirebaseFirestore.instance
-                                        .collection('tasks')
-                                        .doc(uid)
-                                        .collection('mytasks')
-                                        .doc(docs[index]['time'])
-                                        .delete();
-                                  },
-                                  icon: Icon(Icons.delete)),
+                              trailing: Container(
+                                height: 50,
+                                width: 100,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditTask(
+                                                        uid: docs[index],
+                                                      )));
+                                        },
+                                        icon: Icon(Icons.edit)),
+                                    IconButton(
+                                        onPressed: () async {
+                                          await FirebaseFirestore.instance
+                                              .collection('tasks')
+                                              .doc(uid)
+                                              .collection('mytasks')
+                                              .doc(docs[index]['time'])
+                                              .delete();
+                                        },
+                                        icon: Icon(Icons.delete)),
+                                  ],
+                                ),
+                              ),
                             ),
                           );
                         },
