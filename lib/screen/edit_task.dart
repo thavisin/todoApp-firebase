@@ -4,9 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class EditTask extends StatefulWidget {
-  final DocumentSnapshot uid;
+  final DocumentSnapshot taskDocument;
 
-  EditTask({required this.uid});
+  EditTask({required this.taskDocument});
 
   @override
   _EditTaskState createState() => _EditTaskState();
@@ -23,7 +23,7 @@ class _EditTaskState extends State<EditTask> {
   }
 
   void fetchTaskDetails() {
-    final taskData = widget.uid.data() as Map<String, dynamic>;
+    final taskData = widget.taskDocument.data() as Map<String, dynamic>;
 
     setState(() {
       headController.text = taskData['head'];
@@ -32,14 +32,10 @@ class _EditTaskState extends State<EditTask> {
   }
 
   void editTaskInFirebase() async {
-    // final taskData = widget.taskDocument.data() as Map<String, dynamic>;
-    var newTime = DateTime.now();
-
-    await widget.uid.reference.update({
+    await widget.taskDocument.reference.update({
       'head': headController.text,
       'descript': descriptController.text,
-      'time': newTime.toString(), // Update 'time' with the new timestamp
-      'timestamp': newTime,
+      'timestamp': DateTime.now(),
     }).then((_) {
       Fluttertoast.showToast(msg: 'Data Edited');
       Navigator.of(context).pop();

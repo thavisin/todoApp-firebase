@@ -41,6 +41,8 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    var timeNow = DateTime.now();
+    String formattedTime = DateFormat.yMMMMd('en_US').format(timeNow);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -95,6 +97,20 @@ class _HomepageState extends State<Homepage> {
                 ],
               ),
               10.heightBox,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 30),
+                    child: Text(
+                      formattedTime,
+                      style:
+                          TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              10.heightBox,
               Container(
                 padding: EdgeInsets.all(10),
                 height: MediaQuery.of(context).size.height / 2,
@@ -121,7 +137,6 @@ class _HomepageState extends State<Homepage> {
                         itemBuilder: (context, index) {
                           String head = docs[index]['head'];
                           String descript = docs[index]['descript'];
-                          // String time = docs[index]['formattedtime'];
                           var time =
                               (docs[index]['timestamp'] as Timestamp).toDate();
 
@@ -143,8 +158,6 @@ class _HomepageState extends State<Homepage> {
                                 ],
                               ),
                               trailing: Container(
-                                height: 50,
-                                width: 100,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -156,7 +169,8 @@ class _HomepageState extends State<Homepage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       EditTask(
-                                                        uid: docs[index],
+                                                        taskDocument:
+                                                            docs[index],
                                                       )));
                                         },
                                         icon: Icon(Icons.edit)),
@@ -198,7 +212,7 @@ class _HomepageState extends State<Homepage> {
           backgroundColor: Colors.white,
         ),
         floatingActionButtonLocation: isButtonOnTop
-            ? FloatingActionButtonLocation.endDocked
+            ? FloatingActionButtonLocation.centerFloat
             : FloatingActionButtonLocation.endFloat,
 
         //***********************************************
