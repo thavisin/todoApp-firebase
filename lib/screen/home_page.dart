@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:review_app/screen/edit_task.dart';
 
 import '../const/const.dart';
 
@@ -137,54 +136,75 @@ class _HomepageState extends State<Homepage> {
                         itemBuilder: (context, index) {
                           String head = docs[index]['head'];
                           String descript = docs[index]['descript'];
+                          var selectedtime =
+                              (docs[index]['selectedtime'] as Timestamp)
+                                  .toDate();
                           var time =
                               (docs[index]['timestamp'] as Timestamp).toDate();
 
-                          return Card(
-                            child: ListTile(
-                              title: Text('Head: $head'),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Description: $descript'),
-                                  Row(
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Description(
+                                            head: docs[index]['head'],
+                                            descript: docs[index]['descript'],
+                                            timestamp: docs[index]['time'],
+                                          )));
+                            },
+                            child: Container(
+                              child: Card(
+                                child: ListTile(
+                                  title: Text('Head: $head'),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text("Time Edit : "),
-                                      Text(DateFormat.yMd()
-                                          .add_jm()
-                                          .format(time)),
+                                      Text('Description: $descript'),
+                                      Row(
+                                        children: [
+                                          Text("Time Edit : "),
+                                          Text(DateFormat.yMd()
+                                              .add_jm()
+                                              .format(time)),
+                                        ],
+                                      ),
+                                      Text(DateFormat.Hm().format(selectedtime))
                                     ],
                                   ),
-                                ],
-                              ),
-                              trailing: Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      EditTask(
-                                                        taskDocument:
-                                                            docs[index],
-                                                      )));
-                                        },
-                                        icon: Icon(Icons.edit)),
-                                    IconButton(
-                                        onPressed: () async {
-                                          await FirebaseFirestore.instance
-                                              .collection('tasks')
-                                              .doc(uid)
-                                              .collection('mytasks')
-                                              .doc(docs[index]['time'])
-                                              .delete();
-                                        },
-                                        icon: Icon(Icons.delete)),
-                                  ],
+                                  trailing: Container(
+                                    height: 50,
+                                    width: 100,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          EditTask(
+                                                            taskDocument:
+                                                                docs[index],
+                                                          )));
+                                            },
+                                            icon: Icon(Icons.edit)),
+                                        IconButton(
+                                            onPressed: () async {
+                                              await FirebaseFirestore.instance
+                                                  .collection('tasks')
+                                                  .doc(uid)
+                                                  .collection('mytasks')
+                                                  .doc(docs[index]['time'])
+                                                  .delete();
+                                            },
+                                            icon: Icon(Icons.delete)),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

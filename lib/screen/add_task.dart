@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../const/const.dart';
 
@@ -14,6 +14,12 @@ class AddTask extends StatefulWidget {
 class _AddTaskState extends State<AddTask> {
   TextEditingController headController = TextEditingController();
   TextEditingController descriptController = TextEditingController();
+  late DateTime selectedTime;
+  @override
+  void initState() {
+    super.initState();
+    selectedTime = DateTime.now();
+  }
 
   addtasktofirebase() async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -29,7 +35,8 @@ class _AddTaskState extends State<AddTask> {
       'head': headController.text,
       'descript': descriptController.text,
       'time': time.toString(),
-      'timestamp': time
+      'timestamp': time,
+      'selectedtime': selectedTime
     });
     Fluttertoast.showToast(msg: 'Data Added');
   }
@@ -95,6 +102,40 @@ class _AddTaskState extends State<AddTask> {
                       ),
                     ),
                     20.heightBox,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("ALERT TIME : "),
+                        CupertinoButton(
+                            child: Text(
+                              "${selectedTime.hour}:${selectedTime.minute}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                            onPressed: () {
+                              showCupertinoModalPopup(
+                                  context: context,
+                                  builder: (BuildContext context) => SizedBox(
+                                        height: 250,
+                                        child: CupertinoDatePicker(
+                                          backgroundColor: Colors.black,
+                                          initialDateTime: selectedTime,
+                                          onDateTimeChanged:
+                                              (DateTime newTime) {
+                                            setState(
+                                              () => selectedTime = newTime,
+                                            );
+                                          },
+                                          use24hFormat: true,
+                                          mode: CupertinoDatePickerMode.time,
+                                        ),
+                                      ));
+                            }),
+                      ],
+                    ),
+                    50.heightBox,
                     Container(
                       child: ElevatedButton(
                         style: ButtonStyle(
