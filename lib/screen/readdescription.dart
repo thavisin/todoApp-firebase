@@ -33,7 +33,7 @@ class Description extends StatelessWidget {
                       child: readTask.text
                           .color(Colors.white)
                           .fontWeight(FontWeight.bold)
-                          .size(40)
+                          .size(30)
                           .make(),
                     ),
                     Container(
@@ -76,7 +76,7 @@ class Description extends StatelessWidget {
                               Text(
                                 'Title : ',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -84,13 +84,13 @@ class Description extends StatelessWidget {
                                 child: Text(
                                   head,
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.normal,
                                   ),
                                   softWrap:
                                       true, // Allow text to wrap to the next line
                                   maxLines:
-                                      2, // Set the maximum number of lines (adjust as needed)
+                                      10, // Set the maximum number of lines (adjust as needed)
                                 ),
                               )
                             ],
@@ -105,7 +105,7 @@ class Description extends StatelessWidget {
                               Text(
                                 'Description : ',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -113,7 +113,7 @@ class Description extends StatelessWidget {
                                 child: Text(
                                   descript,
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
                                   softWrap:
@@ -134,12 +134,12 @@ class Description extends StatelessWidget {
                             Text(
                               'Last Edit : ',
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                                  fontSize: 14, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               formattedTimestamp,
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.normal),
+                                  fontSize: 14, fontWeight: FontWeight.normal),
                             )
                           ],
                         ),

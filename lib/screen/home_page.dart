@@ -161,16 +161,57 @@ class _HomepageState extends State<Homepage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text('Description: $descript'),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Text("Time Edit : "),
-                                          Text(DateFormat.yMd()
-                                              .add_jm()
-                                              .format(time)),
+                                          Text(
+                                            "Last Edit : ",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              DateFormat.yMd()
+                                                  .add_jm()
+                                                  .format(time),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              softWrap: true,
+                                              maxLines: 10,
+                                            ),
+                                          )
                                         ],
                                       ),
-                                      Text(DateFormat.Hm().format(selectedtime))
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Time Notification: ",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              DateFormat.Hm()
+                                                  .format(selectedtime),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              softWrap: true,
+                                              maxLines: 10,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ],
                                   ),
                                   trailing: Container(
@@ -181,27 +222,29 @@ class _HomepageState extends State<Homepage> {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         IconButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          EditTask(
-                                                            taskDocument:
-                                                                docs[index],
-                                                          )));
-                                            },
-                                            icon: Icon(Icons.edit)),
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EditTask(
+                                                          taskDocument:
+                                                              docs[index],
+                                                        )));
+                                          },
+                                          icon: Icon(Icons.edit),
+                                        ),
                                         IconButton(
-                                            onPressed: () async {
-                                              await FirebaseFirestore.instance
-                                                  .collection('tasks')
-                                                  .doc(uid)
-                                                  .collection('mytasks')
-                                                  .doc(docs[index]['time'])
-                                                  .delete();
-                                            },
-                                            icon: Icon(Icons.delete)),
+                                          onPressed: () async {
+                                            await FirebaseFirestore.instance
+                                                .collection('tasks')
+                                                .doc(uid)
+                                                .collection('mytasks')
+                                                .doc(docs[index]['time'])
+                                                .delete();
+                                          },
+                                          icon: Icon(Icons.delete),
+                                        ),
                                       ],
                                     ),
                                   ),
