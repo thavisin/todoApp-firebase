@@ -4,16 +4,20 @@ import 'package:intl/intl.dart';
 import '../const/const.dart';
 
 class Description extends StatelessWidget {
-  final String head, descript, timestamp;
+  final String head, descript, timestamp, time;
 
   const Description(
       {Key? key,
       required this.head,
       required this.descript,
-      required this.timestamp})
+      required this.timestamp,
+      required this.time})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    DateTime parsedTime = DateTime.parse(time);
+
+    String formattedTime = DateFormat.Hm().format(parsedTime);
     DateTime parsedTimestamp = DateTime.parse(timestamp);
 
     String formattedTimestamp =
@@ -143,10 +147,44 @@ class Description extends StatelessWidget {
                             )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    border: Border.all(width: 3),
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black45,
+                        blurRadius: 20.0,
+                        spreadRadius: 5.0,
+                        offset: Offset(
+                          10.0,
+                          15.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        child: Text(
+                          'Time Notification : ',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        child: Text(formattedTime),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

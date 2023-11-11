@@ -135,12 +135,13 @@ class _HomepageState extends State<Homepage> {
                         itemCount: docs.length,
                         itemBuilder: (context, index) {
                           String head = docs[index]['head'];
-                          String descript = docs[index]['descript'];
-                          var selectedtime =
-                              (docs[index]['selectedtime'] as Timestamp)
-                                  .toDate();
+                          String selectedtime = docs[index]['selectedtime'];
+
                           var time =
                               (docs[index]['timestamp'] as Timestamp).toDate();
+                          // String formattedTimestamp =
+                          //     DateFormat('yyyy-MM-dd HH:mm')
+                          //         .format(selectedtime);
 
                           return InkWell(
                             onTap: () {
@@ -148,10 +149,10 @@ class _HomepageState extends State<Homepage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => Description(
-                                            head: docs[index]['head'],
-                                            descript: docs[index]['descript'],
-                                            timestamp: docs[index]['time'],
-                                          )));
+                                          head: docs[index]['head'],
+                                          descript: docs[index]['descript'],
+                                          timestamp: docs[index]['time'],
+                                          time: selectedtime)));
                             },
                             child: Container(
                               child: Card(
@@ -201,8 +202,7 @@ class _HomepageState extends State<Homepage> {
                                           ),
                                           Expanded(
                                             child: Text(
-                                              DateFormat.Hm()
-                                                  .format(selectedtime),
+                                              selectedtime,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -257,22 +257,36 @@ class _HomepageState extends State<Homepage> {
                     }
                   },
                 ),
+              ),
+              Container(
+                padding: EdgeInsets.all(200),
+                decoration: BoxDecoration(
+                    color: orenge1,
+                    borderRadius:
+                        BorderRadius.only(topLeft: Radius.circular(100))),
+                child: Column(),
               )
             ],
           ),
         )),
 
         //***********************************************
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddTask()));
-          },
-          child: Text(
-            'ADD',
-            style: TextStyle(color: orenge1, fontWeight: FontWeight.bold),
+        floatingActionButton: Container(
+          decoration: BoxDecoration(
+              color: Color.fromARGB(255, 61, 60, 60),
+              borderRadius: BorderRadius.all(Radius.circular(100))),
+          padding: EdgeInsets.all(50),
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AddTask()));
+            },
+            child: Text(
+              'ADD',
+              style: TextStyle(color: orenge1, fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Colors.white,
           ),
-          backgroundColor: Colors.white,
         ),
         floatingActionButtonLocation: isButtonOnTop
             ? FloatingActionButtonLocation.centerFloat
