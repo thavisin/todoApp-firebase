@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 import '../const/const.dart';
 
 class Description extends StatelessWidget {
-  final String head, descript, timestamp, time;
+  final String head, descript, time;
+  final Timestamp timestamp;
 
   const Description(
       {Key? key,
@@ -15,10 +16,7 @@ class Description extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    DateTime parsedTime = DateTime.parse(time);
-
-    String formattedTime = DateFormat.Hm().format(parsedTime);
-    DateTime parsedTimestamp = DateTime.parse(timestamp);
+    DateTime parsedTimestamp = timestamp.toDate();
 
     String formattedTimestamp =
         DateFormat('yyyy-MM-dd HH:mm').format(parsedTimestamp);
@@ -91,10 +89,8 @@ class Description extends StatelessWidget {
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal,
                                   ),
-                                  softWrap:
-                                      true, // Allow text to wrap to the next line
-                                  maxLines:
-                                      10, // Set the maximum number of lines (adjust as needed)
+                                  softWrap: true,
+                                  maxLines: 10,
                                 ),
                               )
                             ],
@@ -120,10 +116,8 @@ class Description extends StatelessWidget {
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
-                                  softWrap:
-                                      true, // Allow text to wrap to the next line
-                                  maxLines:
-                                      10, // Set the maximum number of lines (adjust as needed)
+                                  softWrap: true,
+                                  maxLines: 10,
                                 ),
                               )
                             ],
@@ -173,6 +167,7 @@ class Description extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
+                        padding: EdgeInsets.only(left: 20),
                         child: Text(
                           'Time Notification : ',
                           style: TextStyle(
@@ -180,7 +175,7 @@ class Description extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        child: Text(formattedTime),
+                        child: Text(time),
                       ),
                     ],
                   ),

@@ -14,3 +14,4 @@ export '../auth/authform.dart';
 export '../auth/authscreen.dart';
 export '../screen/edit_task.dart';
 export '../screen/readdescription.dart';
+export '../screen/add_goal.dart';

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:review_app/navbarhome.dart';
 
 import 'const/const.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
-            return Homepage();
+            return Navbarhome();
           } else {
             return AuthScreen();
           }

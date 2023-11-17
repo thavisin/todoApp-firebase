@@ -139,9 +139,6 @@ class _HomepageState extends State<Homepage> {
 
                           var time =
                               (docs[index]['timestamp'] as Timestamp).toDate();
-                          // String formattedTimestamp =
-                          //     DateFormat('yyyy-MM-dd HH:mm')
-                          //         .format(selectedtime);
 
                           return InkWell(
                             onTap: () {
@@ -151,7 +148,7 @@ class _HomepageState extends State<Homepage> {
                                       builder: (context) => Description(
                                           head: docs[index]['head'],
                                           descript: docs[index]['descript'],
-                                          timestamp: docs[index]['time'],
+                                          timestamp: docs[index]['timestamp'],
                                           time: selectedtime)));
                             },
                             child: Container(
@@ -259,12 +256,13 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(200),
                 decoration: BoxDecoration(
-                    color: orenge1,
-                    borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(100))),
-                child: Column(),
+                    border: Border(
+                        bottom: BorderSide(color: Colors.white, width: 2))),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
               )
             ],
           ),
@@ -275,7 +273,7 @@ class _HomepageState extends State<Homepage> {
           decoration: BoxDecoration(
               color: Color.fromARGB(255, 61, 60, 60),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          padding: EdgeInsets.all(50),
+          padding: EdgeInsets.all(30),
           child: FloatingActionButton(
             onPressed: () {
               Navigator.push(
